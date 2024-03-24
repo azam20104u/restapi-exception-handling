@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ public class UserController {
 	private UserDAO dao;
 	
 	@PostMapping("/")
-	public ResponseEntity<UserResource> createUser(@RequestBody UserResource user){
+	public ResponseEntity<UserResource> createUser(@RequestBody @Validated UserResource user){
 		return ResponseEntity.ok(dao.createUser(user));
 	}
 	
