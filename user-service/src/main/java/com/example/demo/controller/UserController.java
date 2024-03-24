@@ -43,11 +43,19 @@ public class UserController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<UserResource> createUser(@PathVariable("id") Integer id, @RequestBody UserResource user){
-		return ResponseEntity.ok(dao.updateUser(id,user));
+		UserResource resource = dao.updateUser(id,user);
+		if(resource == null) {
+			throw new UserNotFoundException(id + " id not found");
+		}
+		return ResponseEntity.ok(resource);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<UserResource> deleteUser(@PathVariable("id") Integer id){
-		return ResponseEntity.ok(dao.deleteUser(id));
+		UserResource resource = dao.deleteUser(id);
+		if(resource == null) {
+			throw new UserNotFoundException(id + " id not found");
+		}
+		return ResponseEntity.ok(resource);
 	}
 }
